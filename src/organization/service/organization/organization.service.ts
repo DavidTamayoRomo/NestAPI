@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrganizationDto } from 'src/organization/dto/organization.dto';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { OrganizacionEntity } from '../../entity/organization.entity';
 
 @Injectable()
@@ -18,4 +18,15 @@ export class OrganizationService {
   findAll(): Promise<OrganizationDto[]> {
     return this.organizationRepository.find();
   }
+
+  //editar
+  update(organization: OrganizationDto): Promise<UpdateResult> {
+    return this.organizationRepository.update(organization.id, organization);
+  }
+
+  //eliminar
+  delete(id: number): Promise<DeleteResult> {
+    return this.organizationRepository.delete(id);
+  }
+  
 }
